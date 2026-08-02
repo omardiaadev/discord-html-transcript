@@ -1,8 +1,7 @@
 package dev.omardiaa.transcript.core.util;
 
 import org.jspecify.annotations.NullMarked;
-
-import java.util.Optional;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A helper class for environment variables.
@@ -15,55 +14,58 @@ public final class EnvironmentUtil {
    * @param key
    *   the variable name.
    * @param defaultValue
-   *   the default value to return if {@link System#getenv(String)} returns {@code null}.
+   *   the value to return if {@link #get(String)} returns {@code null}.
    *
-   * @return {@link System#getenv(String)}, or {@code defaultValue} if {@link #get(String)} is empty.
+   * @return {@link #get(String)}, or {@code defaultValue} if {@link #get(String)} is null.
    */
   public static String get(String key, String defaultValue) {
-    return get(key).orElse(defaultValue);
+    String value = get(key);
+    return value != null ? value : defaultValue;
   }
 
   /**
    * @param key
    *   the variable name.
    * @param defaultValue
-   *   the default value to return if {@link System#getenv(String)} returns {@code null}.
+   *   the value to return if {@link #get(String)} returns {@code null}.
    *
-   * @return {@link System#getenv(String)} as {@code int}, or {@code defaultValue} if {@link #get(String)} is empty.
+   * @return {@link #get(String)} as {@code int}, or {@code defaultValue} if {@link #get(String)} is null.
    *
    * @throws IllegalArgumentException
    *   if the {@link #get(String)} returns a value that's not an {@code int}.
    */
   public static int get(String key, int defaultValue) {
-    return get(key).map(value -> {
-      try {
-        return Integer.parseInt(value);
-      } catch (NumberFormatException e) {
-        throw new IllegalArgumentException(
-          "Environment variable '" + key + "' has invalid value '" + value + "'. Expected an integer.");
-      }
-    }).orElse(defaultValue);
+    String value = get(key);
+
+    try {
+      return value != null ? Integer.parseInt(value) : defaultValue;
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException(
+        "Invalid value '" + value + "' for environment variable '" + key + "'. Expected an integer."
+      );
+    }
   }
 
   /**
    * @param key
    *   the variable name.
    * @param defaultValue
-   *   the default value to return if {@link System#getenv(String)} returns {@code null}.
+   *   the value to return if {@link #get(String)} returns {@code null}.
    *
-   * @return {@link System#getenv(String)} as {@code boolean}, or {@code defaultValue} if {@link #get(String)} is empty.
+   * @return {@link #get(String)} as {@code boolean}, or {@code defaultValue} if {@link #get(String)} is null.
    */
   public static boolean get(String key, boolean defaultValue) {
-    return get(key).map(Boolean::parseBoolean).orElse(defaultValue);
+    String value = get(key);
+    return value != null ? Boolean.parseBoolean(value) : defaultValue;
   }
 
   /**
    * @param key
    *   the variable name.
    *
-   * @return {@link Optional} of {@link System#getenv(String)}.
+   * @return {@link System#getenv(String)}.
    */
-  public static Optional<String> get(String key) {
-    return Optional.ofNullable(System.getenv(key));
+  public static @Nullable String get(String key) {
+    return System.getenv(key);
   }
 }
