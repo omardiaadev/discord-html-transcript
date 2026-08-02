@@ -10,15 +10,16 @@
 
 ## About
 
-**discord-html-transcript** is a microservice used to generate chat logs of Discord messages as a singular offline HTML
-file that resembles the look and feel of the Discord desktop client.
+**discord-html-transcript** is a microservice for generating Discord chat logs as a singular offline HTML file that
+matches the look and feel of the Discord desktop client.
 
 > [!IMPORTANT]
 > discord-html-transcript is not affiliated with Discord Inc.
 
 ### Features
 
-- **Discord UI:** 1 HTML File,
+- **Discord UI:** Modern styling that replicates the look and feel of the Discord desktop client,
+- **Portable:** 100% offline HTML file without compromising any styling.
 - **ComponentsV2:** Containers, Media Galleries, Sections, and more.
 - **Markdown:** Standard Markup, Mentions, Custom Emojis, and more.
 
@@ -93,8 +94,8 @@ implementation("dev.omardiaa:discord-html-transcript-core:0.1.0-beta.7")
 
 ### 3. Standalone API
 
-You can [download](https://github.com/omardiaadev/discord-html-transcript/releases) the executable and self-host it as a
-standalone web server.
+You can [download](https://github.com/omardiaadev/discord-html-transcript/releases) as an executable standalone web
+server to self-host.
 
 #### Configuration
 
@@ -106,7 +107,7 @@ standalone web server.
         <th width="80%">Description</th>
     </tr>
     <tr>
-        <td><code>DISCORD_HTML_TRANSCRIPT_HOST</code></td>
+        <td><code>DISCORD_TRANSCRIPT_HOST</code></td>
         <td>
             Specifies a custom host for the server.
             <br>
@@ -114,7 +115,7 @@ standalone web server.
         </td>
     </tr>
     <tr>
-        <td><code>DISCORD_HTML_TRANSCRIPT_PORT</code></td>
+        <td><code>DISCORD_TRANSCRIPT_PORT</code></td>
         <td>
             Specifies a custom port for the server.
             <br>
@@ -122,11 +123,11 @@ standalone web server.
         </td>
     </tr>
     <tr>
-        <td><code>DISCORD_HTML_TRANSCRIPT_API_KEY</code></td>
+        <td><code>DISCORD_TRANSCRIPT_API_KEY</code></td>
         <td>Specifies a secret key to authenticate client requests.</td>
     </tr>
     <tr>
-        <td><code>DISCORD_HTML_TRANSCRIPT_LOG_LEVEL</code></td>
+        <td><code>DISCORD_TRANSCRIPT_LOG_LEVEL</code></td>
         <td>
             Specifies log level.
             <br>
@@ -147,7 +148,7 @@ standalone web server.
     <tr>
         <td><code>Server-Version</code></td>
         <td>
-            Validates the server version required by the client to ensure compatibility.
+            Validates the server version required by the client against the actual server version.
             <br>
             Required.
         </td>
@@ -157,9 +158,9 @@ standalone web server.
         <td>
             Authenticates client requests.
             <br>
-            Required if <code>DISCORD_HTML_TRANSCRIPT_API_KEY</code> is set.
+            Required, if <code>DISCORD_TRANSCRIPT_API_KEY</code> is set.
             <br>
-            (format: <code>Bearer &lt;DISCORD_HTML_TRANSCRIPT_API_KEY&gt;</code>)
+            (format: <code>Bearer &lt;DISCORD_TRANSCRIPT_API_KEY&gt;</code>)
         </td>
     </tr>
 </table>
@@ -185,7 +186,7 @@ standalone web server.
 
 ##### Versioning
 
-The server validates a [`Server-Version`](#headers) header using the following rules:
+The server validates the [`Server-Version`](#headers) header using the following rules:
 
 - Pre-release versions must match exactly.
 - Major versions must match exactly.
@@ -205,13 +206,19 @@ You can specify the `options` object to configure the generator's options:
   "messages": [],
   "options": {
     "attachment": {
-      // If set to "true", the generator will download attachments and encode them into the file.
-      // default: false
+      /*
+      - If set to "true", the generator will download
+        attachments and encode them into the file.
+      - default: false
+      */
       "save_images": true
     },
     "style": {
-      // If set, the generator will use <link rel="stylesheet" href="path/to/style.css">.
-      // default: null
+      /*
+      - If set, the generator will use "path/to/style.css"
+        instead of using inline styles.
+      - default: null
+      */
       "path": "path/to/style.css"
     }
   }
@@ -226,6 +233,6 @@ Need help? [Ask the Community](https://discord.omardiaa.dev)!
 
 <div align="center">
     <p>Made With 💙 By <a href="https://github.com/omardiaadev"><b>Omar Diaa</b></a></p>
-    <a href="https://fiverr.com/skywolfxp"><img alt="Fiverr" src="https://img.shields.io/badge/-1DBF73?style=for-the-badge&logo=fiverr&logoColor=FFF&logoSize=auto"></a>
+    <a href="https://fiverr.omardiaa.dev"><img alt="Fiverr" src="https://img.shields.io/badge/-1DBF73?style=for-the-badge&logo=fiverr&logoColor=FFF&logoSize=auto"></a>
     <a href="https://ko-fi.com/omardiaadev"><img alt="Ko-fi" src="https://img.shields.io/badge/ko--fi-FF6433?style=for-the-badge&logo=kofi&logoColor=FFF"></a>
 </div>

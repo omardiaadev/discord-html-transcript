@@ -1,16 +1,16 @@
-POST https://<DISCORD_HTML_TRANSCRIPT_HOST>:<DISCORD_HTML_TRANSCRIPT_PORT>/transcript
+POST https://<DISCORD_TRANSCRIPT_HOST>:<DISCORD_TRANSCRIPT_PORT>/transcript
 Server-Version: 0.1.0-beta.7
-Authorization: Bearer <DISCORD_HTML_TRANSCRIPT_API_KEY>
+Authorization: Bearer <DISCORD_TRANSCRIPT_API_KEY>
 
-# input body
+# body
 < payload.json
 
-# output and override html file
+# response (overrides existing file)
 >>! transcript.html
 
 ###
 
 # @no-log
-GET https://<DISCORD_HTML_TRANSCRIPT_HOST>:<DISCORD_HTML_TRANSCRIPT_PORT>/health
+GET https://<DISCORD_TRANSCRIPT_HOST>:<DISCORD_TRANSCRIPT_PORT>/health
 Server-Version: 0.1.0-beta.7
-Authorization: Bearer <DISCORD_HTML_TRANSCRIPT_API_KEY>
+Authorization: Bearer <DISCORD_TRANSCRIPT_API_KEY>

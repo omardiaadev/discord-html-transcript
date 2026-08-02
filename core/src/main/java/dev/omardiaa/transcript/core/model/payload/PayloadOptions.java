@@ -87,7 +87,7 @@ public record PayloadOptions(
     public AttachmentOptions(
       @JsonProperty(value = "save_images") @Nullable Boolean saveImages
     ) {
-      this(saveImages != null ? saveImages : false);
+      this(saveImages != null && saveImages);
     }
   }
 
