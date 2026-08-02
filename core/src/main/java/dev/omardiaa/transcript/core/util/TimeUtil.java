@@ -6,27 +6,17 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 
 /**
  * A helper class for formatting timestamps.
  */
 @NullMarked
 public final class TimeUtil {
-  private static final DateTimeFormatter DATE_FULL =
-    DateTimeFormatter.ofPattern("eeee, MMMM M, y 'at' h:mm a '(UTC)'", Locale.US);
-
-  private static final DateTimeFormatter DATE_LONG =
-    DateTimeFormatter.ofPattern("MMMM d, y", Locale.US);
-
-  private static final DateTimeFormatter DATE_SHORT =
-    DateTimeFormatter.ofPattern("M/d/yy, h:mm a '(UTC)'", Locale.US);
-
-  private static final DateTimeFormatter TIME_SHORT =
-    DateTimeFormatter.ofPattern("h:mm a", Locale.US);
-
-  private static final DateTimeFormatter TIMESTAMP =
-    DateTimeFormatter.ofPattern("M/d/y h:mm a '(UTC)'", Locale.US);
+  private static final DateTimeFormatter DATE_FULL = DateTimeFormatter.ofPattern("eeee, MMMM M, y 'at' h:mm a '(UTC)'");
+  private static final DateTimeFormatter DATE_LONG = DateTimeFormatter.ofPattern("MMMM d, y");
+  private static final DateTimeFormatter DATE_SHORT = DateTimeFormatter.ofPattern("M/d/yy, h:mm a '(UTC)'");
+  private static final DateTimeFormatter TIME_SHORT = DateTimeFormatter.ofPattern("h:mm a");
+  private static final DateTimeFormatter TIMESTAMP = DateTimeFormatter.ofPattern("M/d/y h:mm a '(UTC)'");
 
   private TimeUtil() {}
 

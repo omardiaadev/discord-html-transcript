@@ -1,12 +1,10 @@
-@import dev.omardiaa.transcript.core.util.TimeUtil
 @import dev.omardiaa.transcript.core.model.Payload
 @import dev.omardiaa.transcript.core.model.payload.Message
+@import dev.omardiaa.transcript.core.util.TimeUtil
 
 @param Payload payload
 @param Message message
 @param Message previousMessage
-
-
 
 @if(message.type() != Message.Type.UNKNOWN)
   !{boolean showAuthor = message.showAuthor(previousMessage);}

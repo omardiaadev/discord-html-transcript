@@ -78,7 +78,7 @@ public final class Server {
    */
   public void start() {
     javalin.start();
-    LOGGER.info("Started discord-html-transcript {}.", ServerConfig.getVersion());
+    LOGGER.info("Started discord-transcript {}", ServerConfig.getVersion());
   }
 
   /**
@@ -86,7 +86,7 @@ public final class Server {
    */
   public void stop() {
     javalin.stop();
-    LOGGER.info("Stopped discord-html-transcript.");
+    LOGGER.info("Stopped discord-transcript");
   }
 
   /**

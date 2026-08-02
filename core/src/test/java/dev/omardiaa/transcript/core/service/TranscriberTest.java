@@ -24,18 +24,20 @@ import java.util.concurrent.CompletableFuture;
 /**
  * An integration test to verify transcript generation.
  * <br>
- * Additionally, this will generate a {@code transcript.html} of the specified channel under the {@code /target}
- * directory.
+ * Additionally, this will generate a {@code transcript.html} and {@code transcript.json} of the specified channel
+ * under {@code /target}.
  * <p>
  * This test will be skipped if {@link #DISCORD_BOT_TOKEN}, {@link #DISCORD_GUILD_ID}, {@link #DISCORD_CHANNEL_ID},
  * or {@code JTE_DEV} environment variables are not specified.
  */
-@EnabledIfEnvironmentVariables({
-  @EnabledIfEnvironmentVariable(named = "DISCORD_BOT_TOKEN", matches = ".+"),
-  @EnabledIfEnvironmentVariable(named = "DISCORD_GUILD_ID", matches = ".+"),
-  @EnabledIfEnvironmentVariable(named = "DISCORD_CHANNEL_ID", matches = ".+"),
-  @EnabledIfEnvironmentVariable(named = "JTE_DEV", matches = "true", disabledReason = "[JTE_DEV] must be set to [true]")
-})
+@EnabledIfEnvironmentVariables(
+  {
+    @EnabledIfEnvironmentVariable(named = "DISCORD_BOT_TOKEN", matches = ".+"),
+    @EnabledIfEnvironmentVariable(named = "DISCORD_GUILD_ID", matches = ".+"),
+    @EnabledIfEnvironmentVariable(named = "DISCORD_CHANNEL_ID", matches = ".+"),
+    @EnabledIfEnvironmentVariable(named = "JTE_DEV", matches = "true", disabledReason = "JTE_DEV must be set to: true")
+  }
+)
 class TranscriberTest {
   private static final Logger LOGGER = LoggerFactory.getLogger(TranscriberTest.class);
   private static final String DISCORD_BOT_TOKEN = System.getenv("DISCORD_BOT_TOKEN");
@@ -54,28 +56,22 @@ class TranscriberTest {
 
   @Test
   void shouldTranscribe() throws IOException {
+    CompletableFuture<Guild> guildFuture = fetcher.getGuild(DISCORD_GUILD_ID);
+    CompletableFuture<Channel> channelFuture = fetcher.getChannel(DISCORD_CHANNEL_ID);
+    CompletableFuture<List<Message>> messagesFuture = fetcher.getMessages(DISCORD_CHANNEL_ID);
+
     Payload payload = Assertions.assertTimeoutPreemptively(
       Duration.ofSeconds(30),
-      () -> {
-        CompletableFuture<Guild> guildFuture = fetcher.getGuild(DISCORD_GUILD_ID);
-        CompletableFuture<Channel> channelFuture = fetcher.getChannel(DISCORD_CHANNEL_ID);
-        CompletableFuture<List<Message>> messagesFuture = fetcher.getMessages(DISCORD_CHANNEL_ID);
-
-        return CompletableFuture
-          .allOf(
-            guildFuture,
-            channelFuture,
-            messagesFuture
-          )
-          .thenApply(
-            v -> new Payload(
-              guildFuture.join(),
-              channelFuture.join(),
-              messagesFuture.join(),
-              new PayloadOptions.Builder().path(STYLE_PATH).build()
-            ))
-          .join();
-      }
+      () -> CompletableFuture
+        .allOf(guildFuture, channelFuture, messagesFuture)
+        .thenApply(
+          v -> new Payload(
+            guildFuture.join(),
+            channelFuture.join(),
+            messagesFuture.join(),
+            new PayloadOptions.Builder().path(STYLE_PATH).build()
+          ))
+        .join()
     );
 
     Path dir = Path.of("target");

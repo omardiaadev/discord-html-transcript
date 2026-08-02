@@ -30,12 +30,10 @@ public final class GlobalExceptionHandler {
     ctx.status(HttpStatus.BAD_REQUEST).json(
       new ErrorResponse(
         HttpStatus.BAD_REQUEST,
-        "The request body contains mismatched input.",
+        "The request body contains mismatched input",
         Map.of(
-          "path",
-          e.getPathReference(),
-          "problem",
-          e.getOriginalMessage()
+          "path", e.getPathReference(),
+          "problem", e.getOriginalMessage()
         )
       ));
   }
@@ -46,10 +44,8 @@ public final class GlobalExceptionHandler {
         HttpStatus.CONFLICT,
         e.getMessage(),
         Map.of(
-          "server",
-          ServerConfig.getVersion().toString(),
-          "client",
-          e.getVersion() == null ? "null" : e.getVersion()
+          "server", ServerConfig.getVersion().toString(),
+          "client", e.getVersion() == null ? "null" : e.getVersion()
         )
       ));
   }
@@ -63,12 +59,12 @@ public final class GlobalExceptionHandler {
   }
 
   public static void handleException(Exception e, Context ctx) {
-    LOGGER.error("Encountered unhandled exception.", e);
+    LOGGER.error("Encountered unhandled exception", e);
 
     ctx.status(HttpStatus.INTERNAL_SERVER_ERROR).json(
       new ErrorResponse(
         HttpStatus.INTERNAL_SERVER_ERROR,
-        "Encountered unhandled exception."
+        "Encountered unhandled exception"
       ));
   }
 }

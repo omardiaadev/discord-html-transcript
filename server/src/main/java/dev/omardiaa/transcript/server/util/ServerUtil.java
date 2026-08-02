@@ -64,22 +64,22 @@ public final class ServerUtil {
    *   the Javalin {@link Context}.
    *
    * @throws UnauthorizedResponse
-   *   if the key provided by the {@code Authorization} header does not match {@link ServerConfig#getApiKey()}.
+   *   if the {@code Authorization} header provided key does not match {@link ServerConfig#getApiKey()}.
    */
   public static void validateApiKey(Context ctx) {
     String authHeader = ctx.header("Authorization");
-    String authType = "Bearer ";
+    String authTokenType = "Bearer ";
 
     if (Check.isBlank(authHeader)) {
-      throw new UnauthorizedResponse("Authorization header is missing.");
+      throw new UnauthorizedResponse("Missing Authorization header");
     }
 
-    if (!authHeader.startsWith(authType)) {
-      throw new UnauthorizedResponse("Authorization header must start with \"Bearer \".");
+    if (!authHeader.startsWith(authTokenType)) {
+      throw new UnauthorizedResponse("Authorization header must start with \"Bearer \"");
     }
 
-    if (!Objects.equals(authHeader.substring(authType.length()), ServerConfig.getApiKey())) {
-      throw new UnauthorizedResponse("API Key is invalid.");
+    if (!Objects.equals(authHeader.substring(authTokenType.length()), ServerConfig.getApiKey())) {
+      throw new UnauthorizedResponse("Invalid API Key");
     }
   }
 }

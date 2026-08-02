@@ -23,7 +23,6 @@ import java.util.concurrent.CompletableFuture;
  */
 @NullMarked
 class TranscriberFetcher {
-  private static final String DISCORD_API = "https://discord.com/api/v10";
   private static final TypeReference<Guild> GUILD_TYPE = new TypeReference<>() {};
   private static final TypeReference<Channel> CHANNEL_TYPE = new TypeReference<>() {};
   private static final TypeReference<List<Message>> MESSAGE_LIST_TYPE = new TypeReference<>() {};
@@ -76,7 +75,7 @@ class TranscriberFetcher {
   private <T> CompletableFuture<T> fetch(String path, TypeReference<T> responseType) {
     HttpRequest request = HttpRequest
       .newBuilder()
-      .uri(URI.create(DISCORD_API + path))
+      .uri(URI.create("https://discord.com/api/v10" + path))
       .header("Authorization", "Bot " + token)
       .build();
 
@@ -90,7 +89,7 @@ class TranscriberFetcher {
         try {
           return TranscriberConfig.getJsonMapper().readValue(response.body(), responseType);
         } catch (Exception e) {
-          throw new RuntimeException("Failed to deserialize JSON response", e);
+          throw new RuntimeException("Failed to deserialize response", e);
         }
       });
   }

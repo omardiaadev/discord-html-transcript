@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 @NullMarked
 public final class TranscriberConfig {
   private static final Logger LOGGER = LoggerFactory.getLogger(TranscriberConfig.class);
-
   private static final boolean JTE_DEV = EnvironmentUtil.get("JTE_DEV", false);
   private static final ExecutorService EXECUTOR = Executors
     .newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
@@ -42,7 +41,7 @@ public final class TranscriberConfig {
     if (JTE_DEV) {
       TEMPLATE_ENGINE = TemplateEngine.create(new ResourceCodeResolver("jte"), ContentType.Html);
       TEMPLATE_ENGINE.setBinaryStaticContent(true);
-      LOGGER.warn("Java Template Engine is running in development mode.");
+      LOGGER.warn("Java Template Engine is running in development mode");
     } else {
       TEMPLATE_ENGINE = TemplateEngine.createPrecompiled(ContentType.Html);
     }
@@ -83,11 +82,11 @@ public final class TranscriberConfig {
 
     try {
       if (!EXECUTOR.awaitTermination(5, TimeUnit.SECONDS)) {
-        LOGGER.warn("Executor didn't shutdown in time, forcing shutdown.");
+        LOGGER.warn("Forcing shutdown due to executor taking too long to shutdown");
         EXECUTOR.shutdownNow();
       }
     } catch (InterruptedException e) {
-      LOGGER.error("Shutdown interrupted, forcing shutdown.");
+      LOGGER.error("Forcing shutdown due to interruption");
       EXECUTOR.shutdownNow();
       Thread.currentThread().interrupt();
     }
