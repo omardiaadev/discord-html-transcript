@@ -50,7 +50,7 @@
     <maven.compiler.release>17</maven.compiler.release>
     <!--Versions-->
     <jte.version>3.2.4</jte.version>
-    <slf4j.version>2.0.18</slf4j.version>
+    <slf4j.version>2.0.20</slf4j.version>
   </properties>
 
   <dependencyManagement>
@@ -70,13 +70,13 @@
       <dependency>
         <groupId>tools.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.4</version>
       </dependency>
 
       <dependency>
         <groupId>io.javalin</groupId>
         <artifactId>javalin</artifactId>
-        <version>7.2.2</version>
+        <version>7.2.4</version>
       </dependency>
 
       <dependency>
@@ -95,7 +95,7 @@
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
-        <version>6.1.2</version>
+        <version>6.1.3</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
